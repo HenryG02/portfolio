@@ -1,3 +1,4 @@
+-- Vamos utilizar a base de dados 'world', que já vem instalada no MySQL por padrão
 USE world;
 
 -- Puxando dados de interesse sobre o Brasil
@@ -5,7 +6,6 @@ SELECT Name, SurfaceArea, IndepYear, Population, LifeExpectancy, GNP, Government
 FROM country
 WHERE Name = 'Brazil';
 
--- Os dados são MUITO antigos xD
 -- Puxando dados da América do Sul, ordenados de forma decrescente pelo tamanho da população
 SELECT Name, SurfaceArea, IndepYear, Population, LifeExpectancy, GNP, GovernmentForm, HeadOfState
 FROM country
@@ -33,18 +33,6 @@ ON city.CountryCode = country.Code
 ORDER BY city.Population DESC;
 
 -- Qual o país com maior expectativa de vida e quantos idiomas são falados oficialmente?
--- Obtendo o país com maior expectativa de vida
-SELECT country.Name, country.LifeExpectancy
-FROM country
-ORDER BY country.LifeExpectancy DESC; -- O país com maior expectativa de vida é Andorra
-
--- Obtendo o país com maior expectativa de vida (opção alternativa)
-SELECT country.Name
-FROM country
-WHERE country.LifeExpectancy = (
-SELECT MAX(country.LifeExpectancy)
-FROM country); -- Solução alternativa
-
 SELECT country.Name, country.LifeExpectancy, COUNT(countrylanguage.Language) AS 'Quantidade de idiomas oficiais'
 FROM country
 JOIN countrylanguage
